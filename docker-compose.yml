@@ -1,0 +1,46 @@
+version: '3'
+services:
+  blog-nginx:
+    container_name: "blog-nginx"
+    build:
+      context: ./docker/nginx
+    depends_on:
+      - blog-app
+    ports:
+      - 80:80
+    volumes:
+      - ./:/src
+
+  blog-app:
+    container_name: "blog-app"
+    build:
+      context: ./docker/php
+    depends_on:
+      - blog-mysql
+    ports:
+      - 5173:5173
+    volumes:
+      - ./:/src
+      - /src/node_modules
+      - /src/vendor
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+
+  blog-mysql:
+    image: mysql:8.0.28
+    command: --max_allowed_packet=32505856
+    container_name: "blog-mysql"
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=blog
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+    ports:
+      - 3306:3306
+
+  blog-redis:
+    image: redis:alpine
+    container_name: "blog-redis"
+    ports:
+      - 16379:6379
