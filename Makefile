@@ -28,6 +28,10 @@ web:
 build:
 	docker exec blog-app npm run build
 
+clone:
+	docker cp blog-app:/src/vendor ./
+	docker cp blog-app:/src/node_modules ./
+
 sudo-up:
 	sudo docker compose up -d
 	sudo docker exec blog-app composer install

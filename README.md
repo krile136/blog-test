@@ -1,11 +1,5 @@
-## git cloneしたあと
+## composer や nodeで何かしらパッケージを入れたら
 
-$ mkdir ./docker/nginx/logs
-$ mkdir ./docker/mysql
-$ cp .env.example .env
-$ docker exec blog-app php artisan key:generate 
-$ docker exec blog-app chown -R root:root .
-$ docker exec blog-app npm run build
-$ docker exec blog-app chmod -R guo+w storage
-$ docker exec blog-app php artisan storage:link
-
+vendorやnode_modulesはマウント指定していないので、ローカル環境には
+反映されない。定義ジャンプなどが聞かないのでコンテナから中身をコピーしておく
+$ make clone
