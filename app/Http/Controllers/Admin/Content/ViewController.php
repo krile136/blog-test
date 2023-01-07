@@ -13,6 +13,7 @@ class ViewController extends Controller
 
     public function show(int $content_id)
     {
-        return view('admin.content.show');
+        /* return view('admin.content.show'); */
+        return view('admin.content.index');
     }
 }

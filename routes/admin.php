@@ -15,11 +15,6 @@ Route::controller(ProfileController::class)->group(function () {
     Route::delete('/profile', 'destroy')->name('profile.destroy');
 });
 
-Route::controller(ViewController::class)->group(function () {
-    Route::get('/content', 'index');
-    Route::get('/content/{content_id}', 'show');
-});
-
 Route::controller(CreateController::class)->group(function () {
     Route::get('content/init', 'init')->name('content.create.init');
     Route::get('content/form', 'form')->name('content.create.form');
@@ -27,4 +22,9 @@ Route::controller(CreateController::class)->group(function () {
                     ->name('content.create.validation');
     Route::get('content/confirm', 'confirm')->name('content.create.confirm');
     Route::post('content/create', 'store')->name('content.create.store');
+});
+
+Route::controller(ViewController::class)->group(function () {
+    Route::get('/content', 'index')->name('content.index');
+    Route::get('/content/{content_id}', 'show')->name('content.show');
 });

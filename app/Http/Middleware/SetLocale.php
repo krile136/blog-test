@@ -19,7 +19,7 @@ class SetLocale
     {
         $accept_language = $request->header('Accept-Language');
         $languages = explode(',', $accept_language);
-        $base_language = isset($languages[0]) ? $languages[0] : 'en';
+        $base_language = isset($languages[0]) ? substr($languages[0], 0, 2) : 'en';
 
         App::setLocale($base_language);
 
